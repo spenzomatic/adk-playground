@@ -2,6 +2,11 @@ from google.adk.agents import LlmAgent
 from google.adk.tools import google_search
 from google.adk.tools import agent_tool
 import yaml
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # since adk web is invoked from parent folder, need to specify travel_agent/
 with open('travel_agent/instructions.yaml', 'r') as file:
@@ -15,8 +20,14 @@ REFINER_AGENT_INSTRUCTION = instructions['refiner_agent']['instruction']
 ROOT_AGENT_DESCRIPTION = instructions['root_agent']['description']
 ROOT_AGENT_INSTRUCTION = instructions['refiner_agent']['instruction']
 
-# Pick the LLM model to be used
-MODEL="gemini-2.0-flash"
+# Get configuration from environment variables
+USE_VERTEXAI = os.getenv('GOOGLE_GENAI_USE_VERTEXAI', 'FALSE').upper() == 'TRUE'
+API_KEY = os.getenv('GOOGLE_API_KEY')
+if not API_KEY:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
+
+# Get model configuration from environment variable
+MODEL = os.getenv('GOOGLE_GENAI_MODEL', 'gemini-2.0-flash')3
 
 idea_agent = LlmAgent(
     model=MODEL,
