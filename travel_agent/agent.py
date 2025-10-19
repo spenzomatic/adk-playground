@@ -14,8 +14,7 @@ with open('travel_agent/instructions.yaml', 'r') as file:
 
 # Access the specific instructions for each agent
 IDEA_AGENT_DESCRIPTION = instructions['idea_agent']['description']
-IDEA_AGENT_I
-NSTRUCTION = instructions['idea_agent']['instruction']
+IDEA_AGENT_INSTRUCTION = instructions['idea_agent']['instruction']
 REFINER_AGENT_DESCRIPTION = instructions['refiner_agent']['description']
 REFINER_AGENT_INSTRUCTION = instructions['refiner_agent']['instruction']
 ROOT_AGENT_DESCRIPTION = instructions['root_agent']['description']
@@ -28,7 +27,7 @@ if not API_KEY:
     raise ValueError("GOOGLE_API_KEY environment variable is not set")
 
 # Get model configuration from environment variable
-MODEL = os.getenv('GOOGLE_GENAI_MODEL', 'gemini-2.0-flash')  # Using gemini-2.0-flash as default
+MODEL = os.getenv('GOOGLE_GENAI_MODEL', 'gemini-2.0-flash')3
 
 idea_agent = LlmAgent(
     model=MODEL,
